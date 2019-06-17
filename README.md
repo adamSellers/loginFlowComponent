@@ -2,7 +2,7 @@
 
 This repository provides a method to check a user's location upon login and pass that geolocation information through to a login flow. If a user's location is not within tolerance (set in the component setup in the Lightning flow builder), then the user is denied access to the services.
 
-It is noted here that this is an example only, there will be more configuration required around permissions and users if considering deploying this into a customer community.
+It is noted here that this is an example only, there will be more configuration required around permissions and users if considering deploying this into a customer community. It is also noted, that this is an imperfect solution on location! Given that this solution takes the browser location from the geolocation API, things such as VPN's could cause incorrect reuslts.
 
 ## Dev, Build and Test
 
