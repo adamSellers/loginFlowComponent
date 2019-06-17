@@ -1,0 +1,31 @@
+<aura:component
+  controller="LocatorComponentController"
+  implements="flexipage:availableForAllPageTypes, lightning:availableForFlowScreens"
+  access="global"
+>
+  <aura:attribute name="latitude" type="Double" />
+  <aura:attribute name="longitude" type="Double" />
+  <aura:attribute name="branchCode" type="String" />
+  <aura:attribute name="allowLogin" type="Boolean" />
+  <aura:attribute name="tolerance" type="Integer" />
+  <aura:attribute name="units" type="String" />
+
+  <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+  <lightning:card title="Enter Branch Code">
+    <aura:set attribute="actions">
+      <lightning:button
+        label="Enter"
+        onclick="{! c.handleClick }"
+        variant="brand"
+      />
+    </aura:set>
+    <div class="slds-p-around_small">
+      <lightning:input
+        type="text"
+        placeholder="enter your branch code..."
+        value="{!v.branchCode}"
+      />
+    </div>
+  </lightning:card>
+</aura:component>

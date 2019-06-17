@@ -1,0 +1,16 @@
+<design:component>
+  <design:attribute
+    name="tolerance"
+    label="Set location tolerance in mi/km"
+    default="2"
+    required="true"
+  />
+  <design:attribute
+    name="units"
+    label="Enter units"
+    datasource="mi,km"
+    default="km"
+    required="true"
+  />
+  <design:attribute name="allowLogin" label="Allow login" default="false" />
+</design:component>
