@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignments>
+        <description>this will set the login flow output variable.</description>
+        <name>set_forcelogout</name>
+        <label>Set ForceLogout</label>
+        <locationX>583</locationX>
+        <locationY>53</locationY>
+        <assignmentItems>
+            <assignToReference>LoginFlow_ForceLogout</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <description>This will set the force logout to false, allowing the login process to continue.</description>
+        <name>Set_ForceLogout_False</name>
+        <label>Set ForceLogout False</label>
+        <locationX>330</locationX>
+        <locationY>257</locationY>
+        <assignmentItems>
+            <assignToReference>LoginFlow_ForceLogout</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>This step will check the allowLogin boolean returned from the lightning component.</description>
+        <name>Allow_Login_to_Continue</name>
+        <label>Allow Login to Continue</label>
+        <locationX>321</locationX>
+        <locationY>54</locationY>
+        <defaultConnector>
+            <targetReference>Set_ForceLogout_False</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Allow Login</defaultConnectorLabel>
+        <rules>
+            <name>Block_Login</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>allowLogin</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>set_forcelogout</targetReference>
+            </connector>
+            <label>Block Login</label>
+        </rules>
+    </decisions>
+    <description>This flow uses a lightning component to harvest a user&#39;s location and performs a lookup to ensure they are within an acceptable tolerance.</description>
+    <interviewLabel>Flow for Location Aware Login {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Flow for Location Aware Login</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <description>This component checks a user&#39;s location and determines if login is available.</description>
+        <name>LoginFlowLocation</name>
+        <label>LoginFlowLocation</label>
+        <locationX>181</locationX>
+        <locationY>52</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Allow_Login_to_Continue</targetReference>
+        </connector>
+        <fields>
+            <name>loginComponent</name>
+            <extensionName>c:LocatorLoginFlowComponent</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>units</name>
+                <value>
+                    <stringValue>km</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tolerance</name>
+                <value>
+                    <numberValue>25.0</numberValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>allowLogin</assignToReference>
+                <name>allowLogin</name>
+            </outputParameters>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <startElementReference>LoginFlowLocation</startElementReference>
+    <status>Draft</status>
+    <variables>
+        <description>This is the output of the location calculation in the component controller class</description>
+        <name>allowLogin</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <description>Setting this to true will immediately logout a user in the login flow.</description>
+        <name>LoginFlow_ForceLogout</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>
