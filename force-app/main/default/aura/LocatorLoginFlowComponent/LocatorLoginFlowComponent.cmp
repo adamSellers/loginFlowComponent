@@ -13,19 +13,23 @@
   <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
 
   <lightning:card title="Enter Branch Code">
-    <aura:set attribute="actions">
+    <!-- <aura:set attribute="actions">
       <lightning:button
         label="Enter"
         onclick="{! c.handleClick }"
         variant="brand"
       />
-    </aura:set>
+    </aura:set> -->
     <div class="slds-p-around_small">
       <lightning:input
         type="text"
         placeholder="enter your branch code..."
         value="{!v.branchCode}"
+        onblur="{!c.handleBlur}"
       />
+    </div>
+    <div class="slds-p-around_small">
+      allow login value is: {!v.allowLogin}
     </div>
   </lightning:card>
 </aura:component>

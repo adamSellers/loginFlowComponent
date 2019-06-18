@@ -1,7 +1,6 @@
 public with sharing class LocatorComponentController {
     @AuraEnabled
-    public static Boolean getBranchLocationDetails(String locationCode, Decimal lat, Decimal lon, String units, Integer tolerance){
-        // get 
+    public static Boolean getBranchLocationDetails(String locationCode, Decimal lat, Decimal lon, String units, Double tolerance){
         List<Account> inRange = new List<Account>();
         inRange = [SELECT Id, ShippingAddress FROM Account WHERE Location_Code__c =: locationCode];
 

@@ -8,7 +8,6 @@
           var lon = position.coords.longitude;
           component.set("v.latitude", lat);
           component.set("v.longitude", lon);
-          console.log("the lat/lon is: " + lat + "/" + lon);
         },
         err => {
           console.warn(err);
@@ -17,14 +16,16 @@
     }
   },
 
-  handleClick: function(component, event) {
-    // this will perform the apex function that does the radius
+  handleBlur: function(component) {
+    // query all the required attributes from the component
     var branchCode = component.get("v.branchCode");
     var latitude = component.get("v.latitude");
     var longitude = component.get("v.longitude");
-    var action = component.get("c.getBranchLocationDetails");
     var tolerance = component.get("v.tolerance");
     var units = component.get("v.units");
+
+    // get the method from the backend controller
+    var action = component.get("c.getBranchLocationDetails");
 
     // set up parameter input
     action.setParams({
